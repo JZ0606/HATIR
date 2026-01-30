@@ -1,6 +1,16 @@
-# HATIR: Heat-Aware Diffusion for Turbulent Infrared Video Super-Resolution
+# HATIR
 
-The repository contains the official implementation for the paper "HATIR: Heat-Aware Diffusion for Turbulent Infrared Video Super-Resolution".
+Yang Zou, Xingyue Zhu, Kaiqi Han, Jun Ma, Xingyuan Li, Zhiying Jiang, Jinyuan Liu, "**Heat-Aware Diffusion for Turbulent Infrared Video Super-Resolution**" (**AAAI-26 Oral**)
 
-## FLIR-IVSR
-[Google Drive](https://drive.google.com/file/d/1TiWz5-xuu9LWgulpIrJe1sxadkeU4Dnu/view?usp=sharing)
+- [*[ArXiv]*](https://www.arxiv.org/abs/2601.04682)
+
+---
+
+---
+
+<h2> <p align="center"> **FLIR-IVSR** Dataset </p> </h2>  
+
+## Download
+- [Google Drive](https://drive.google.com/file/d/1TiWz5-xuu9LWgulpIrJe1sxadkeU4Dnu/view?usp=sharing)
+
+
