@@ -16,26 +16,11 @@ Yang Zou, Xingyue Zhu, Kaiqi Han, Jun Ma, Xingyuan Li, Zhiying Jiang, Jinyuan Li
   <table>
     <tr>
       <td align="center">
-        <img src="assets/gif/0046/GT.gif" width="500" />
+        <img src="assets/gif/0046/GT.gif" width="400" />
         <br />
       </td>
       <td align="center">
-        <img src="assets/gif/0046/LR.gif" width="500" />
-        <br />
-      </td>
-    </tr>
-  </table>
-</div>
-
-<div align="center">
-  <table>
-    <tr>
-      <td align="center">
-        <img src="assets/gif/0085/GT.gif" width="500" />
-        <br />
-      </td>
-      <td align="center">
-        <img src="assets/gif/0085/LR.gif" width="500" />
+        <img src="assets/gif/0046/LR.gif" width="400" />
         <br />
       </td>
     </tr>
@@ -46,12 +31,27 @@ Yang Zou, Xingyue Zhu, Kaiqi Han, Jun Ma, Xingyuan Li, Zhiying Jiang, Jinyuan Li
   <table>
     <tr>
       <td align="center">
-        <img src="assets/gif/0118/GT.gif" width="500" />
+        <img src="assets/gif/0085/GT.gif" width="400" />
+        <br />
+      </td>
+      <td align="center">
+        <img src="assets/gif/0085/LR.gif" width="400" />
+        <br />
+      </td>
+    </tr>
+  </table>
+</div>
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <img src="assets/gif/0118/GT.gif" width="400" />
         <br />
         <strong>Ground Truth</strong>
       </td>
       <td align="center">
-        <img src="assets/gif/0118/LR.gif" width="500" />
+        <img src="assets/gif/0118/LR.gif" width="400" />
         <br />
         <strong>Turbulent</strong>
       </td>
