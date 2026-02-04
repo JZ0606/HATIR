@@ -59,11 +59,11 @@ Yang Zou, Xingyue Zhu, Kaiqi Han, Jun Ma, Xingyuan Li, Zhiying Jiang, Jinyuan Li
   </table>
 </div>
 
-## Dataset Detials
+## Dataset Details
 
 ### Composition ($645$ sequences)
 
-- **Camera-moving subset ($135$ sequences)**: buildings, lakes, parks,aircraft, statues, and vegetation;
+- **Camera-moving subset ($135$ sequences)**: buildings, lakes, parks, aircraft, statues, and vegetation;
 - **Camera-static subset ($510$ sequences)**:
   - **Dynamic scenes ($495$ sequences)**: urban structures, pedestrian and traffic flows, crowds, individuals, lakes, and roads;
   - **Static scenes ($15$ sequences)**: buildings, vehicles, aircraft, and road environments.
@@ -74,4 +74,7 @@ Yang Zou, Xingyue Zhu, Kaiqi Han, Jun Ma, Xingyuan Li, Zhiying Jiang, Jinyuan Li
 
 ## Download
 
-[![](https://img.shields.io/badge/GoogleDrive-4285F4?style=&logo=googledrive&logoColor=white)](https://drive.google.com/file/d/1TiWz5-xuu9LWgulpIrJe1sxadkeU4Dnu/view?usp=sharing) [![](https://img.shields.io/badge/夸克网盘-4285F4?style=&logo=quark&logoColor=white)](https://pan.quark.cn/s/96aa648f9d2f)
+[![](https://img.shields.io/badge/GoogleDrive-4285F4?style=&logo=googledrive&logoColor=white)](https://drive.google.com/file/d/1TiWz5-xuu9LWgulpIrJe1sxadkeU4Dnu/view?usp=sharing) [!
+[](https://img.shields.io/badge/Huggingface-FFD21E?style=&logo=huggingface&logoColor=white)](https://huggingface.co/datasets/Ophil/FLIR-IVSR)
+[](https://img.shields.io/badge/夸克网盘-4285F4?style=&logo=quark&logoColor=white)](https://pan.quark.cn/s/96aa648f9d2f)
+
