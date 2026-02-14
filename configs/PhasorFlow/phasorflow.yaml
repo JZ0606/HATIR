@@ -1,0 +1,70 @@
+model:
+  base_learning_rate: 5e-6
+  target: ldm.modules.phasorflow.phasorflow.PhasorFlows
+  params:
+    # for training only
+    # ckpt_path: ./checkpoints/phasorflow.ckpt
+    lossconfig:
+      target: basicsr.losses.basic_loss.CharbonnierLoss
+
+    flownet_config:
+      target: basicsr.archs.spynet_arch.SpyNet
+      params:
+        load_path: ./checkpoints/spynet_sintel_final-3d2a1287.pth
+
+data:
+  target: main.DataModuleFromConfig
+  params:
+    batch_size: 1
+    num_workers: 6
+    wrap: false
+    train:
+      target: basicsr.data.realbasicvsr_dataset.RealVSRRecurrentDataset
+      params:
+        dataroot_gt: /xxx/FLIR-IVSR/gt
+        dataroot_lq: /xxx/FLIR-IVSR/turb_lr
+        seq_num: 645
+        frame_num: 30
+        val_partition: HATIR
+        test_mode: false
+        io_backend:
+          type: disk
+
+        num_frame: 6 # number of neighboring frames as input
+        gt_size: 512
+        interval_list: [1]
+        random_reverse: false
+        use_hflip: true
+        use_rot: false
+        flip_sequence: false
+
+    validation:
+      target: basicsr.data.realbasicvsr_dataset.RealVSRRecurrentDataset
+      params:
+        dataroot_gt: /xxx/FLIR-IVSR/gt
+        dataroot_lq: /xxx/FLIR-IVSR/turb_lr
+        seq_num: 130
+        frame_num: 30
+        val_partition: HATIR
+        test_mode: true
+        io_backend:
+          type: disk
+
+        num_frame: 6
+        gt_size: 512
+        interval_list: [1]
+        random_reverse: false
+        use_hflip: true
+        use_rot: false
+        flip_sequence: false
+
+lightning:
+  modelcheckpoint:
+    params:
+      every_n_train_steps: 1500
+
+  trainer:
+    max_steps: 800000
+    accumulate_grad_batches: 8
+    detect_anomaly: True
+    val_check_interval: 200

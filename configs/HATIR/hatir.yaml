@@ -1,0 +1,206 @@
+sf: 4
+model:
+  base_learning_rate: 5.0e-05
+
+  target: ldm.models.diffusion.ddpm.LatentDiffusionVSRTextWT
+  params:
+    # parameterization: "v"
+    linear_start: 0.00085
+    linear_end: 0.0120
+    num_timesteps_cond: 1
+    log_every_t: 200
+    timesteps: 1000
+    first_stage_key: image
+    cond_stage_key: caption
+    image_size: 512
+    channels: 4
+    num_frames: 6
+    cond_stage_trainable: False # Note: different from the one we trained before
+    conditioning_key: crossattn
+    monitor: val/loss_simple_ema
+    scale_factor: 0.18215
+    use_ema: False
+    # for training only
+    # ckpt_path: ./checkpoints/v2-1_512-ema-pruned.ckpt
+    train_temporal_module: True
+    unfrozen_diff: False
+    random_size: False
+    time_replace: 1000
+    use_usm: True
+    #P2 weighting, we do not use in final version
+    p2_gamma: ~
+    p2_k: ~
+    # ignore_keys: []
+
+    unet_config:
+      target: ldm.modules.diffusionmodules.openaimodel.InflatedUNetModelDualcondV2
+      params:
+        num_frames: 6
+        image_size: 32 # unused
+        in_channels: 4
+        out_channels: 4
+        model_channels: 320
+        attention_resolutions: [4, 2, 1]
+        num_res_blocks: 2
+        channel_mult: [1, 2, 4, 4]
+        num_head_channels: 64
+        use_spatial_transformer: True
+        use_linear_in_transformer: True
+        transformer_depth: 1
+        context_dim: 1024
+        use_checkpoint: False
+        legacy: False
+        semb_channels: 256
+
+    first_stage_config:
+      target: ldm.models.autoencoder.AutoencoderKL
+      params:
+        # for training only
+        # ckpt_path: ./checkpoints/v2-1_512-ema-pruned.ckpt
+        embed_dim: 4
+        monitor: val/rec_loss
+        ddconfig:
+          double_z: true
+          z_channels: 4
+          resolution: 512
+          in_channels: 3
+          out_ch: 3
+          ch: 128
+          ch_mult:
+            - 1
+            - 2
+            - 4
+            - 4
+          num_res_blocks: 2
+          attn_resolutions: []
+          dropout: 0.0
+        lossconfig:
+          target: torch.nn.Identity
+
+    cond_stage_config:
+      target: ldm.modules.encoders.modules.FrozenOpenCLIPEmbedder
+      params:
+        version: "./checkpoints/open_clip_pytorch_model.bin"
+        freeze: True
+        layer: "penultimate"
+        device: "cuda"
+
+    structcond_stage_config:
+      target: ldm.modules.diffusionmodules.openaimodel.InflatedEncoderUNetModelWT
+      params:
+        num_frames: 6
+        image_size: 96
+        in_channels: 4
+        model_channels: 256
+        out_channels: 256
+        num_res_blocks: 2
+        attention_resolutions: [4, 2, 1]
+        dropout: 0
+        channel_mult: [1, 1, 2, 2]
+        conv_resample: True
+        dims: 2
+        use_checkpoint: False
+        use_fp16: False
+        num_heads: 4
+        num_head_channels: -1
+        num_heads_upsample: -1
+        use_scale_shift_norm: False
+        resblock_updown: False
+        use_new_attention_order: False
+
+    flownet_config:
+      target: basicsr.archs.spynet_arch.SpyNet
+      params:
+        load_path: ./checkpoints/spynet_sintel_final-3d2a1287.pth
+
+data:
+  target: main.DataModuleFromConfig
+  params:
+    batch_size: 1
+    num_workers: 6
+    wrap: false
+    train:
+      target: basicsr.data.realbasicvsr_dataset.RealVSRRecurrentDataset
+      params:
+        dataroot_gt: ./FLIR-IVSR/gt
+        dataroot_lq: ./FLIR-IVSR/turb_lr
+        seq_num: 645
+        frame_num: 30
+        val_partition: HATIR
+        test_mode: false
+        io_backend:
+          type: disk
+
+        num_frame: 6 # number of neighboring frames as input
+        gt_size: 512
+        interval_list: [1]
+        random_reverse: false
+        use_hflip: true
+        use_rot: false
+        flip_sequence: false
+
+    validation:
+      target: basicsr.data.realbasicvsr_dataset.RealVSRRecurrentDataset
+      params:
+        dataroot_gt: /xxx/FLIR-IVSR/gt
+        dataroot_lq: /xxx/FLIR-IVSR/turb_lr
+        seq_num: 130
+        frame_num: 30
+        val_partition: HATIR
+        test_mode: true
+        io_backend:
+          type: disk
+
+        num_frame: 6
+        gt_size: 512
+        interval_list: [1]
+        random_reverse: false
+        use_hflip: true
+        use_rot: false
+        flip_sequence: false
+
+test_data:
+  target: main.DataModuleFromConfig
+  params:
+    batch_size: 1
+    num_workers: 6
+    wrap: false
+    test:
+      target: basicsr.data.realbasicvsr_dataset.RealVSRRecurrentDataset
+      params:
+        dataroot_gt: /xxx/FLIR-IVSR/gt
+        dataroot_lq: /xxx/FLIR-IVSR/turb_lr
+        seq_num: 130
+        frame_num: 30
+        # meta_info_file: basicsr/data/meta_info/meta_info_REDS_GT.txt
+        val_partition: HATIR
+        test_mode: true
+        io_backend:
+          type: disk
+
+        num_frame: 6
+        gt_size: 512
+        interval_list: [1]
+        random_reverse: false
+        use_hflip: true
+        use_rot: false
+        flip_sequence: false
+
+lightning:
+  modelcheckpoint:
+    params:
+      every_n_train_steps: 3000
+
+  callbacks:
+    image_logger:
+      target: main.ImageLogger
+      params:
+        batch_frequency: 2000
+        max_images: 5
+        n_row: 5
+        increase_log_steps: False
+
+  trainer:
+    benchmark: True
+    max_steps: 800000
+    accumulate_grad_batches: 4
