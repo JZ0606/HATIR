@@ -72,7 +72,7 @@ Yang Zou, Xingyue Zhu, Kaiqi Han, Jun Ma, Xingyuan Li, Zhiying Jiang, Jinyuan Li
 
 - **Image size**: $1024 \times 768$
 
-## Download
+### Download
 
 [![](https://img.shields.io/badge/GoogleDrive-4285F4?style=&logo=googledrive&logoColor=white)](https://drive.google.com/file/d/1TiWz5-xuu9LWgulpIrJe1sxadkeU4Dnu/view?usp=sharing)
 [![](https://img.shields.io/badge/Huggingface-FFD21E?style=&logo=huggingface&logoColor=white)](https://huggingface.co/datasets/Ophil/FLIR-IVSR)
@@ -103,11 +103,12 @@ pip install -e git+https://github.com/openai/CLIP.git@main#egg=clip
 
 ## Testing
 
-1. Download the checkpoints for U-net, PhasorFlow and TAD from huggingface, google drive or https://pan.quark.cn/s/bfbff4f8a494
+1. Download the checkpoints for U-net, PhasorFlow and TAD from [![](https://img.shields.io/badge/Huggingface-FFD21E?style=&logo=huggingface&logoColor=white)](https://huggingface.co/Ophil/HATIR) or [![](https://img.shields.io/badge/夸克网盘-4285F4?style=&logo=quark&logoColor=white)](https://pan.quark.cn/s/bfbff4f8a494)
+
 2. Modify the path to the checkpoints and the dataset path in down below:
 
 ```
-  python scripts/vsr_val_ddpm_text_T_vqganfin_oldcanvas_tile.py \
+  python scripts/test_tile.py \
   --config configs/HATIR/hatir.yaml \
   --ckpt UNET_CKPT_PATH \
   --vqgan_ckpt VQGANCKPT_PATH \
@@ -124,7 +125,7 @@ pip install -e git+https://github.com/openai/CLIP.git@main#egg=clip
 
 ## Training
 
-### finetune U-net
+### Finetune U-net
 
 Download the pretrained Stable Diffusion models from [[HuggingFace](https://huggingface.co/stabilityai/stable-diffusion-2-1-base)], and update the ckpt_path, flownet load_path and data paths in `hatir.yaml`.
 
@@ -138,7 +139,7 @@ python main.py \
 
 ```
 
-### train PhasorFlow
+### Train PhasorFlow
 
 Please update the ckpt_path, flownet load_path and data paths in `phasorflow.yaml`.
 
@@ -152,11 +153,11 @@ python main.py \
 
 ```
 
-### generate data for TAD training
+### Generate data for TAD training
 
 ```
 
-python scripts/vsr_val_ddpm_text_T_vqganfin_w_latent.py \
+python scripts/generate_lantent.py \
  --config configs/HATIR/hatir.yaml \
  --ckpt UNET_CKPT_PATH \
  --vqgan_ckpt VQGANCKPT_PATH\
@@ -174,7 +175,7 @@ python scripts/vsr_val_ddpm_text_T_vqganfin_w_latent.py \
 
 ```
 
-### train TAD
+### Train TAD
 
 Please update the ckpt_path, flownet load_path, data paths and latent paths in `tad.yaml`.
 

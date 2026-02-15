@@ -23,12 +23,12 @@ model:
         perceptual_weight: 0.5
         kl_weight: 0
         disc_weight: 0.025
-        disc_factor: 1.0 
+        disc_factor: 1.0
         # disc_weight: 0
         # disc_factor: 0
         flownet_config:
           target: basicsr.archs.spynet_arch.SpyNet
-          params: 
+          params:
             load_path: ./checkpoints/spynet_sintel_final-3d2a1287.pth
     ddconfig:
       double_z: true
@@ -39,14 +39,14 @@ model:
       out_ch: 3
       ch: 128
       ch_mult:
-      - 1
-      - 2
-      - 4
-      - 4
+        - 1
+        - 2
+        - 4
+        - 4
       num_res_blocks: 2
       attn_resolutions: []
       dropout: 0.0
-    
+
 data:
   target: main.DataModuleFromConfig
   params:
@@ -56,11 +56,11 @@ data:
     train:
       target: basicsr.data.single_video_dataset.REDSAutoencoderDataset
       params:
-        dataroot_gt: ./output_l/gt
-        dataroot_lq: ./output_l/lq
-        dataroot_ps: ./output_l/phasor
-        dataroot_lt: ./output_l/lantent
-        dataroot_fl: ./output_l/flow
+        dataroot_gt: ./mid_output/gt
+        dataroot_lq: ./mid_output/lq
+        dataroot_ps: ./mid_output/phasor
+        dataroot_lt: ./mid_output/lantent
+        dataroot_fl: ./mid_output/flow
         seq_num: 645
         frame_num: 30
         val_partition: HATIR
@@ -81,11 +81,11 @@ data:
     validation:
       target: basicsr.data.single_video_dataset.REDSAutoencoderDataset
       params:
-        dataroot_gt: ./output_l/gt
-        dataroot_lq: ./output_l/lq
-        dataroot_ps: ./output_l/phasor
-        dataroot_lt: ./output_l/lantent
-        dataroot_fl: ./output_l/flow
+        dataroot_gt: ./mid_output/gt
+        dataroot_lq: ./mid_output/lq
+        dataroot_ps: ./mid_output/phasor
+        dataroot_lt: ./mid_output/lantent
+        dataroot_fl: ./mid_output/flow
         seq_num: 130
         frame_num: 30
         val_partition: HATIR

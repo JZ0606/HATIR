@@ -197,7 +197,6 @@ def main():
     parser.add_argument(
         "--vqgan_ckpt",
         type=str,
-        default="models/ldm/stable-diffusion-v1/epoch=000011.ckpt",
         help="path to checkpoint of VQGAN model",
     )
     parser.add_argument(

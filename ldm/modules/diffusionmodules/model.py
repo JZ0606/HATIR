@@ -5,7 +5,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
 from einops import rearrange
-from torch.utils.checkpoint import checkpoint
 from ldm.util import instantiate_from_config
 from ldm.modules.attention import LinearAttention, TemporalAttention
 from ldm.modules.diffusionmodules.util import SpatialTemporalConv, MultiDimTemporalConv
@@ -1163,13 +1162,10 @@ class VideoDecoder_Mix(nn.Module):
         h = self.struct_attn(h)
 
         # middle
-        # h = self.mid.block_1(h, temb)
-        h = checkpoint(self.mid.block_1, h, temb, use_reentrant=False)
+        h = self.mid.block_1(h, temb)
         h = self.temporal_mixing(h)
-        # h = self.mid.attn_1(h)
-        h = checkpoint(self.mid.attn_1, h, use_reentrant=False)
-        # h = self.mid.block_2(h, temb)
-        h = checkpoint(self.mid.block_2, h, temb, use_reentrant=False)
+        h = self.mid.attn_1(h)
+        h = self.mid.block_2(h, temb)
         
 
         # upsampling
@@ -1177,22 +1173,17 @@ class VideoDecoder_Mix(nn.Module):
             # print("h", h.shape)
             
             for i_block in range(self.num_res_blocks+1):
-                # h = self.up[i_level].block[i_block](h, temb)
-                # h = self.up[i_level].temporal_mixing[i_block](h)
-                h = checkpoint(self.up[i_level].block[i_block], h, temb, use_reentrant=False)
-                h = checkpoint(self.up[i_level].temporal_mixing[i_block], h, use_reentrant=False)
+                h = self.up[i_level].block[i_block](h, temb)
+                h = self.up[i_level].temporal_mixing[i_block](h)
                 if len(self.up[i_level].attn) > 0:
-                    # h = self.up[i_level].attn[i_block](h)
-                    h = checkpoint(self.up[i_level].attn[i_block], h, use_reentrant=False)
+                    h = self.up[i_level].attn[i_block](h)
 
             if i_level != self.num_resolutions-1 and i_level != 0:
                 cur_fuse_layer = getattr(self, 'fusion_layer_{}'.format(i_level))
-                # h = cur_fuse_layer(enc_fea[i_level-1], h, self.fusion_w)
-                h = checkpoint(cur_fuse_layer, enc_fea[i_level-1], h, self.fusion_w, use_reentrant=False)
+                h = cur_fuse_layer(enc_fea[i_level-1], h, self.fusion_w)
                 del enc_fea[i_level-1] 
             if i_level != 0:
-                # h = self.up[i_level].upsample(h)
-                h = checkpoint(self.up[i_level].upsample, h, use_reentrant=False)
+                h = self.up[i_level].upsample(h)
 
         # end
         if self.give_pre_end:

@@ -211,7 +211,6 @@ def main():
     parser.add_argument(
         "--vqgan_ckpt",
         type=str,
-        default="checkpoints/vqgan_cfw_00011.ckpt",
         help="path to checkpoint of VQGAN model",
     )
     parser.add_argument(
@@ -531,9 +530,7 @@ def main():
                                                              tile_size=64,
                                                              tile_overlap=opt.tile_overlap,
                                                              batch_size_sample=opt.n_samples)
-                            _, enc_fea_lq = vq_model.encode(im_lq_bs)
                             x_samples = vq_model.decode(samples * 1. / model.scale_factor, enc_fea_lq)
-                            # x_samples = model.decode_first_stage(samples)
 
                             if opt.colorfix_type == 'adain':
                                 x_samples = adaptive_instance_normalization(x_samples, im_lq_bs)

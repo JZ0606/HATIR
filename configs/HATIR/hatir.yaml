@@ -122,9 +122,9 @@ data:
     train:
       target: basicsr.data.realbasicvsr_dataset.RealVSRRecurrentDataset
       params:
-        dataroot_gt: ./FLIR-IVSR/gt
-        dataroot_lq: ./FLIR-IVSR/turb_lr
-        seq_num: 645
+        dataroot_gt: /xxx/FLIR-IVSR/gt
+        dataroot_lq: /xxx/FLIR-IVSR/turb_lr
+        seq_num: 515
         frame_num: 30
         val_partition: HATIR
         test_mode: false
