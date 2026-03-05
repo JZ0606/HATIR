@@ -78,6 +78,10 @@ Yang Zou, Xingyue Zhu, Kaiqi Han, Jun Ma, Xingyuan Li, Zhiying Jiang, Jinyuan Li
 [![](https://img.shields.io/badge/Huggingface-FFD21E?style=&logo=huggingface&logoColor=white)](https://huggingface.co/datasets/Ophil/FLIR-IVSR)
 [![](https://img.shields.io/badge/夸克网盘-4285F4?style=&logo=quark&logoColor=white)](https://pan.quark.cn/s/96aa648f9d2f)
 
+---
+
+![Pipeline](assets/pipeline.jpg)
+
 ## Installation
 
 ```
@@ -188,4 +192,17 @@ python main.py \
  --name NAME \
  --scale_lr False
 
+```
+
+## Citation
+
+If you find this project useful for your research, please consider citing:
+
+```
+@article{zou2026hatir,
+  title={HATIR: Heat-Aware Diffusion for Turbulent Infrared Video Super-Resolution},
+  author={Zou, Yang and Zhu, Xingyue and Han, Kaiqi and Ma, Jun and Li, Xingyuan and Jiang, Zhiying and Liu, Jinyuan},
+  journal={arXiv preprint arXiv:2601.04682},
+  year={2026}
+}
 ```
