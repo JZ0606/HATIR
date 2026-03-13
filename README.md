@@ -131,7 +131,7 @@ pip install -e git+https://github.com/openai/CLIP.git@main#egg=clip
 
 ### Finetune U-net
 
-Download the pretrained Stable Diffusion models from [[HuggingFace](https://huggingface.co/stabilityai/stable-diffusion-2-1-base)], and update the ckpt_path, flownet load_path and data paths in `hatir.yaml`.
+Download the pretrained Stable Diffusion models from [[HuggingFace](https://huggingface.co/Manojb/stable-diffusion-2-1-base)], and update the ckpt_path, flownet load_path and data paths in `hatir.yaml`.
 
 ```
 python main.py \
