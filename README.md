@@ -2,7 +2,7 @@
 
 Yang Zou, Xingyue Zhu, Kaiqi Han, Jun Ma, Xingyuan Li, Zhiying Jiang, Jinyuan Liu, "**Heat-Aware Diffusion for Turbulent Infrared Video Super-Resolution**" (**AAAI-26 Oral**)
 
-[![Arxiv](https://img.shields.io/badge/arXiv-2601.04682-b31b1b.svg)](https://www.arxiv.org/abs/2601.04682)
+[Paper](https://ojs.aaai.org/index.php/AAAI/article/view/38421)
 
 ![Teaser](assets/teaser.jpg)
 
