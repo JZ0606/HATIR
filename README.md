@@ -199,10 +199,15 @@ python main.py \
 If you find this project useful for your research, please consider citing:
 
 ```
-@article{zou2026hatir,
+@article{Zou2026HATIR,
   title={HATIR: Heat-Aware Diffusion for Turbulent Infrared Video Super-Resolution},
-  author={Zou, Yang and Zhu, Xingyue and Han, Kaiqi and Ma, Jun and Li, Xingyuan and Jiang, Zhiying and Liu, Jinyuan},
-  journal={arXiv preprint arXiv:2601.04682},
-  year={2026}
+  author={Yang Zou and Xingyue Zhu and Kaiqi Han and Jun Ma and Xingyuan Li and Zhiying Jiang and Jinyuan Liu},
+  journal={Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume={40},
+  number={16},
+  pages={14095--14103},
+  year={2026},
+  doi={10.1609/aaai.v40i16.38421},
+  url={https://ojs.aaai.org/index.php/AAAI/article/view/38421}
 }
 ```
